@@ -1,0 +1,4 @@
+[submodule "app/www/modx3"]
+	path = app/www/modx3
+	url = https://github.com/modxcms/revolution
+	branch = 3.x
