@@ -2,3 +2,6 @@
 	path = app/www/modx3
 	url = https://github.com/modxcms/revolution
 	branch = 3.x
+[submodule "modx-next-manager"]
+	path = modx-next-manager
+	url = https://github.com/MODX-Club/modx-next-manager

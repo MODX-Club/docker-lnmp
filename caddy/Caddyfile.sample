@@ -1,0 +1,19 @@
+
+0.0.0.0:2015 {
+    tls off
+    gzip
+   
+    proxy / modx-next-manager:3000 {
+        transparent
+        websocket
+    }
+}
+
+0.0.0.0:2017 {
+    tls off
+    gzip
+    proxy / pma:80 {
+        transparent
+        websocket
+    }
+}

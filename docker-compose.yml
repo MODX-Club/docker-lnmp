@@ -55,3 +55,41 @@ services:
       UPLOAD_LIMIT: ${PMA_UPLOAD_LIMIT:-100M}
     ports:
       - "8090:80"
+
+  modx-next-manager:
+    tty: true
+    build:
+      context: ./modx-next-manager
+      dockerfile: ./Dockerfile
+      args: 
+        - SITE=modx-next-manager
+        - ENV_MODE=development
+    volumes:
+      - ./modx-next-manager/shared:/www/modx-next-manager/shared
+      - ./modx-next-manager/uploads:/www/modx-next-manager/uploads
+      - ./modx-next-manager/.storybook:/www/modx-next-manager/.storybook
+      - ./modx-next-manager/cypress:/www/modx-next-manager/cypress
+      - ./modx-next-manager/e2e:/www/modx-next-manager/e2e
+      - ./modx-next-manager/pages:/www/modx-next-manager/pages
+      - ./modx-next-manager/src:/www/modx-next-manager/src
+      - ./modx-next-manager/public:/www/modx-next-manager/public
+      - ./modx-next-manager/stories:/www/modx-next-manager/stories
+      - ./modx-next-manager/server:/www/modx-next-manager/server
+      - ./modx-next-manager/package.json:/www/modx-next-manager/package.json
+    env_file: 
+      - .env
+    environment: 
+      # - API_ENDPOINT=${API_ENDPOINT:-http://api:4000}
+      - ENV_MODE=development
+    command: bash -c "yarn dev"
+    ports:
+      - '3000:3000'
+
+  # web-server
+  proxy:
+    environment:
+      - ACME_AGREE=true
+    build:
+      context: ./caddy
+    ports:
+      - 2015:2015
